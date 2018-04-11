@@ -1,0 +1,25 @@
+version: '3.0'
+
+services:
+
+  api:
+    image: nginx:1.13.12
+    ports:
+      - 8080:80
+    networks:
+      - nginx-cluster
+    volumes:
+      - ./config/api.conf:/etc/nginx/conf.d/api.conf:ro
+
+  api1:
+    image: tomcat:7
+    networks:
+      - nginx-cluster
+
+  api2:
+    image: tomcat:7
+    networks:
+      - nginx-cluster
+
+networks:
+  nginx-cluster:
