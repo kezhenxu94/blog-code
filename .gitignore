@@ -1,3 +1,9 @@
+.*
+!.gitignore
+*.iml
+target/
+build/
+
 # Compiled class file
 *.class
 
