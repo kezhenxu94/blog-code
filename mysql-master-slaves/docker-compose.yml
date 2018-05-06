@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+
+  master:
+    image: mysql:5.7.9
+    volumes:
+      - ./master:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: master
+    ports:
+      - 3306:3306
+    networks:
+      - mysql-clusters
+    hostname: master
+
+  slave0:
+    image: mysql:5.7.9
+    volumes:
+      - ./slave0:/etc/mysql/conf.d
+      - ./slave:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: slave0
+    ports:
+      - 3307:3306
+    networks:
+      - mysql-clusters
+    hostname: slave0
+
+  slave1:
+    image: mysql:5.7.9
+    volumes:
+      - ./slave1:/etc/mysql/conf.d
+      - ./slave:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: slave1
+    ports:
+      - 3308:3306
+    networks:
+      - mysql-clusters
+    hostname: slave1
+
+networks:
+  mysql-clusters:
